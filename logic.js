@@ -35,7 +35,7 @@ function newBlocks(cube) {
         
         //Text input area
          let todos = $("<textarea>")
-         todos.attr("id", "input"+ cube[i].time) 
+         todos.attr("id", "text-area") 
          row.append(todos)
         
         //Save button displayed
