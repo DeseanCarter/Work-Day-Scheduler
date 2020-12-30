@@ -3,16 +3,9 @@ var currentDay = $("#currentDay");
 //Container Variable
 var containerBlock = $(".container")
 
-//Setting date and time on page open
-// setInterval(function() {
-//     currentDay.empty(); 
-//     currentDay.append(dayjs().format('dddd MMMM DD' + " - " +'h:mm:ss:a')); 
-//     currentColors();   
-// },1000);
-
 //Set colors
 function currentColors() {
-    for (let i=0; i<11; i++) {
+    for (let i=0; i<9; i++) {
         let newTime = $(".hour")[i].attributes[2].value
         if(parseInt(newTime) === parseInt(dayjs().format('H'))) {
             $(".hour")[i].className = "row hour present"
@@ -21,15 +14,8 @@ function currentColors() {
         }else {
         $(".hour")[i].className = "row hour future"
             }
-    }
-        
+    } 
 }
-
-
-//Past, Present, Future
-setInterval(function() {
-
-})
 
 //Time of day object
 var timeOfDay = [
@@ -42,8 +28,8 @@ var timeOfDay = [
     {time: "3PM", key: 15},
     {time: "4PM", key: 16},
     {time: "5PM", key: 17},
-    {time: "8PM", key: 20},
-    {time: "9PM", key: 21}
+    //{time: "8PM", key: 20},
+    //{time: "9PM", key: 21}
 
 ];
 //Block Function
@@ -64,8 +50,12 @@ function newBlocks(cube) {
          let todos = $("<textarea>")
          todos.attr("id", "text-area")
          todos.attr("class", "col-8") 
+
+
+        //get item frmom localStorage
+         todos.val(localStorage.getItem(cube[i].key))
          row.append(todos)
-        
+
         //Save button displayed
         let button = $("<button>")
         //button.attr("class", "col-2")
@@ -75,7 +65,6 @@ function newBlocks(cube) {
         row.append(button)
         containerBlock.append(row)
     }  
-     
 }
 newBlocks(timeOfDay)
 
@@ -88,3 +77,13 @@ setInterval(function() {
 },1000);
 
 currentColors()
+//saveButton(timeOfDay)
+$(".saveBtn").on("click", function(){
+ 
+    var value = $(this).siblings("#text-area").val();
+    var key =  $(this).parent().attr("key")
+    console.log(key, value);
+
+    localStorage.setItem(key, value)
+
+})
