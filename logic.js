@@ -4,22 +4,47 @@ var currentDay = $("#currentDay");
 var containerBlock = $(".container")
 
 //Setting date and time on page open
+// setInterval(function() {
+//     currentDay.empty(); 
+//     currentDay.append(dayjs().format('dddd MMMM DD' + " - " +'h:mm:ss:a')); 
+//     currentColors();   
+// },1000);
+
+//Set colors
+function currentColors() {
+    for (let i=0; i<11; i++) {
+        let newTime = $(".hour")[i].attributes[2].value
+        if(parseInt(newTime) === parseInt(dayjs().format('H'))) {
+            $(".hour")[i].className = "row hour present"
+        }else if (parseInt(newTime) < parseInt(dayjs().format('H'))) {
+            $(".hour")[i].className = "row hour past"
+        }else {
+        $(".hour")[i].className = "row hour future"
+            }
+    }
+        
+}
+
+
+//Past, Present, Future
 setInterval(function() {
-    currentDay.empty(); 
-    currentDay.append(dayjs().format('dddd MMMM DD' + " - " +'h:mm:ss:a'));    
-},1000);
+
+})
 
 //Time of day object
 var timeOfDay = [
-    {time: "9AM"},
-    {time: "10AM"},
-    {time: "11AM"},
-    {time: "12AM"},
-    {time: "1AM"},
-    {time: "2AM"},
-    {time: "3AM"},
-    {time: "4AM"},
-    {time: "5AM"},
+    {time: "9AM", key: 9},
+    {time: "10AM", key: 10},
+    {time: "11AM", key: 11},
+    {time: "12PM", key: 12},
+    {time: "1PM", key: 13},
+    {time: "2PM", key: 14},
+    {time: "3PM", key: 15},
+    {time: "4PM", key: 16},
+    {time: "5PM", key: 17},
+    {time: "8PM", key: 20},
+    {time: "9PM", key: 21}
+
 ];
 //Block Function
 function newBlocks(cube) {
@@ -28,24 +53,38 @@ function newBlocks(cube) {
         let row = $("<div>")
         row.attr("id", cube[i].time)
         row.attr("class", "row hour")
+        row.attr("key", timeOfDay[i].key)
         
         //Hours of day displayed to rows
          let hours = $("<div>").text(cube[i].time)
+         hours.attr("class", "col-2")
          row.append(hours)
         
         //Text input area
          let todos = $("<textarea>")
-         todos.attr("id", "text-area") 
+         todos.attr("id", "text-area")
+         todos.attr("class", "col-8") 
          row.append(todos)
         
         //Save button displayed
         let button = $("<button>")
-        button.attr("class", "saveBtn")
+        //button.attr("class", "col-2")
+        button.attr("class", "saveBtn col-2")
         button.attr("type", "button")
+        
         row.append(button)
         containerBlock.append(row)
     }  
      
-    
 }
 newBlocks(timeOfDay)
+
+
+//Setting date and time on page open
+setInterval(function() {
+    currentDay.empty(); 
+    currentDay.append(dayjs().format('dddd MMMM DD' + " - " +'h:mm:ss:a')); 
+    currentColors();   
+},1000);
+
+currentColors()
