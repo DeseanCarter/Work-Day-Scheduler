@@ -28,8 +28,7 @@ var timeOfDay = [
     {time: "3PM", key: 15},
     {time: "4PM", key: 16},
     {time: "5PM", key: 17},
-    //{time: "8PM", key: 20},
-    //{time: "9PM", key: 21}
+    
 
 ];
 //Block Function
@@ -58,7 +57,7 @@ function newBlocks(cube) {
 
         //Save button displayed
         let button = $("<button>")
-        //button.attr("class", "col-2")
+        
         button.attr("class", "saveBtn col-2")
         button.attr("type", "button")
         
@@ -77,7 +76,7 @@ setInterval(function() {
 },1000);
 
 currentColors()
-//saveButton(timeOfDay)
+
 $(".saveBtn").on("click", function(){
  
     var value = $(this).siblings("#text-area").val();
